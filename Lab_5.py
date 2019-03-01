@@ -6,13 +6,6 @@
 import simpy
 import random
 import math
-# Intervalo de cuando se genera cuantos procesos solicita la RAM
-intervalo = 10
-#El entorno que se encuentre la simulacion
-env = simpy.Environment()
-#Intentos
-#No estoy seguro para que sirve el random.seed, recomiendo ver la fuente ya mencionada. 
-intentos = random.seed(RANDOM_SEED)
 
 
 """
@@ -23,40 +16,79 @@ Descargue la libreria de math para obtener la desviacion estandar. Debemos sacar
 para obtener un promedio y una desviacion estandar.
 """
 
+datos = []
+
 #procesos es la cantidad de instrucciones a realizar de 1 a 3
 #memoria pues la cantidad de cuanta memoria a la ram de 1 a 10
-def computadora(env,procesos,cantidad_memoria):
-	#Como es un generador, su ciclo es infinito.
-	while True:
-		#El container de RAM, tiene una capacida de 100
-		#Los parametros estan en ingles porque lo pide el simpy
-		RAM = simpy.Container(env, init = 0, capacity = cantidad_memoria)
-		#El CPU que solo o, lo cual permite realizar tres
-		#instrucciones. Esto debe ser variable, ya que podríamos decir luego que tenemos un procesador más rápido que ejecuta más
-		#instrucciones en esa unidad de tiempo.
-		CPU = simpy.Resource(env, capacity = procesos)
-		procesadores = procesos
+
+# Intervalo de cuando se genera cuantos procesos solicita la RAM
+intervalo = 10
+#El entorno que se encuentre la simulacion
+env = simpy.Environment()
+promedio = 0
+desviacion = 0
+#Intentos
+#No estoy seguro para que sirve el random.seed, recomiendo ver la fuente ya mencionada. 
+random.seed(RANDOM_SEED)
+procesos = 3
+CPU = simpy.Resource(env, capacity = procesos)
+memoria = random.randint(1,10)
+instrucciones = random.randint(1,10)
+RAM = simpy.Container(env, init = 0, capacity = cantidad_memoria)
+
+
+#Calcular promedio y desviacion estandar de la lista datos
+def nuevo(env,procesos,RAM,CPU,cantidad_memoria,instrucciones,intervalo,tiempo):
+	for i in range(procesos):
+		#Genera nuevos procesos
+		yield env.timeout(ranom.expovariate(1.0/intervalo))
+		with RAM.get(cantidad_memoria) as colaDelRam:
+			yield colaDelRam
+			print("El proceso %s se encontro en el nuevo estado en %s" %(i,env.now))
+			print("El proceso %s pide %s de RAM" %(i,cantidad_memoria))
+			print(Ram.level, "Cantidad libre de RAM")
+			env.process(correr(env,RAM,cantidad_memoria,procesos,CPU,i))
+
+	
+
+#Esta funcion es importante, ya que contiene una partee donde interrupte el proceso. 
+def correr(env,ram,cantidad_memoria,procesos,CPU,identidad):
+	#Si la cantidad de instrucciones es menor o igual a cero, env.process(terminar)
+		yield(env.timeout(1))
+		print('El Proceso %s se encuentra en modo listo en  %s' % (identidad, env.now))
+        print('El Proceso %s pide el CPU' %(identidad))
+        print('El Proceso %s contiene  %s instructions' %(identidad, procesos))
+		if (instrucciones <= 0):
+			with CPU.request as requ:
+				yield requ
+				print("El Proceso %s esta corriendo"(identidad))
+
+				intrucciones  = instrucciones - procesos
+				yield env.timeout((1/instructions) * instructions)
+                    instructions = instructions - instructions
+                    print('Process %s is Terminated at %s' %(name, env.now))
+                    tiempoPromedio = env.now
+                    listCPU.append(env.now)
+                    RAM.put(ramProcess) 
+				env.process(terminar(env))
+			yield env.timeout(1)
+		elif:
+		#Si la cantidad de instrucces es mayor, (tenes que generar un random (1,2) si te da 1 le das env.process(esperar) si te da 2 le das env.process(leer))
+	
+		
 		
 
 
+def leer(env,ram,cantidad_memoria,procesos,instrucciones,CPU,incial):
+	yield env.timeout(1)
 
-def nuevo(env,procesos,RAM,CPU,cantidad_memoria,instrucciones,salida):
-	for i in range(salida,cantidad_memoria):
-		tiempo = (1.0/intervalo)
-		memoria_RAM = randint(1,10)
-		procesos = randint(1,10)
-		tiempo_inicial = env.now()
-		yield env.process()
-def agregar_Datos(env,ram,cantidad_memoria,procesos):
-	yield()
-
-
-#Esta funcion es imporntante, ya que contiene una partee donde interrupte el proceso. 
-def correr(env,ram,cantidad_memoria,procesos):
-def leer(env,ram,cantidad_memoria,procesos):
 def esperar(env,ram,cantidad_memoria,procesos):
-def terminar(env,ram,cantidad_memoria,procesos):
+	yield env.timeout(1)
 
+def terminar(env,ram,cantidad_memoria,procesos):
+	#Calcular tiempo final / inicial 
+	#agregarlo a una lista datos. 
+	yield env.timeout(1)
 
 
 
