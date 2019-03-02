@@ -1,10 +1,18 @@
+'''
+Nombres: Josue Sagastume 18173
+         Mario Perdomo 18029
+
+Fecha de creacion: 1 de marzo de 2019
+        
+'''
+
 import simpy
 
 import random
 
 from random import seed
 
-random.seed(10)
+random.seed(220)
 
   
 
@@ -50,7 +58,7 @@ def proceso(env, nombre,  CPU, RAM):
 
                 print('Proceso %s esta corriendo ahora' % (nombre))
 
-                if((instrucciones - 3) <= 0): ##change this if wanna change the instructions per Process
+                if((instrucciones - 3) <= 0): #Esto se debe modificar para cambiar las instrucciones por proceso
 
                     yield env.timeout((1/instrucciones) * instrucciones)
 
@@ -68,7 +76,7 @@ def proceso(env, nombre,  CPU, RAM):
 
                     yield env.timeout(1)
 
-                    instrucciones = instrucciones - 3 ##change this if wanna change the instructions per Process
+                    instrucciones = instrucciones - 3 #Esto se debe modificar para cambiar las instrucciones por proceso
 
                     print('Proceso %s deja el CPU a los %s ut' % (nombre, env.now))
 
@@ -114,9 +122,7 @@ env = simpy.Environment()
 
 CPU = simpy.Resource(env, capacity=1)
 
-RAM = simpy.Container(env, init=100, capacity=100)
-
-instrucciones = 3 #Cantidad de instrucciones por proceso
+RAM = simpy.Container(env, init=100, capacity=100)]
 
 listCPU = list()
 
