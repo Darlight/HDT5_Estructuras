@@ -1,0 +1,1 @@
+La mejor estrategia para reducir el tiempo promedio de ejecucion de los procesos segun las graficas es en el aumento de memoria, con un intervalo de 1, pues esta contiene los puntos mas bajos en todas las graficas, por lo que quiere decir que esta estrategia en promedio dura menos tiempo para realizar procesos.
